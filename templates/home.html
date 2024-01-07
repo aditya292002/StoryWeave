@@ -1,0 +1,33 @@
+{% extends 'base.html' %} {% block content %}
+
+<div style=" margin-bottom: auto; background-color: lightgray; padding: 20px;">
+<form method="post" class="buttons mb-3">
+  <h3>Enter The StoryWeave Room</h3>
+  <div>
+    <label>Name:</label>
+    <input
+      type="text"
+      placeholder="Pick a UserName!"
+      name="name"
+      value="{{name}}"
+      class="form-control"
+    />
+  </div>
+
+
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Room Code</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Room Code" name="code" value="{{code}}">
+    <button type="submit" name="join" class="btn btn-primary">Join a Room</button>
+  </div>
+
+  <button type="submit" name="create" class="create-btn btn btn-primary">Create a Room</button>
+
+  {% if error %}
+  <ul>
+    <li>{{error}}</li>
+  </ul>
+  {% endif %}
+</form>
+</div>
+{% endblock %}
