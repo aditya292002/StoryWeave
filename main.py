@@ -101,3 +101,134 @@ def disconnect():
 
 if __name__ == "__main__":
     socketio.run(app, debug=True)
+    
+    
+
+'''
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data)
+The above example uses string messages. Another type of unnamed events use JSON data:
+
+@socketio.on('json')
+def handle_json(json):
+    print('received json: ' + str(json))
+The most flexible type of event uses custom event names. The message data for these events can be string, bytes, int, or JSON:
+
+@socketio.on('my event')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+Custom named events can also support multiple arguments:
+
+@socketio.on('my_event')
+def handle_my_custom_event(arg1, arg2, arg3):
+    print('received args: ' + arg1 + arg2 + arg3)
+When the name of the event is a valid Python identifier that does not collide with other defined symbols, the @socketio.event decorator provides a more compact syntax that takes the event name from the decorated function:
+
+@socketio.event
+def my_custom_event(arg1, arg2, arg3):
+    print('received args: ' + arg1 + arg2 + arg3)
+Named events are the most flexible, as they eliminate the need to include additional metadata to describe the message type. The names message, json, connect and disconnect are reserved and cannot be used for named events.
+
+Flask-SocketIO also supports SocketIO namespaces, which allow the client to multiplex several independent connections on the same physical socket:
+
+@socketio.on('my event', namespace='/test')
+def handle_my_custom_namespace_event(json):
+    print('received json: ' + str(json))
+When a namespace is not specified a default global namespace with the name '/' is used.
+
+For cases when a decorator syntax isn’t convenient, the on_event method can be used:
+
+def my_function_handler(data):
+    pass
+
+socketio.on_event('my event', my_function_handler, namespace='/test')
+Clients may request an acknowledgement callback that confirms receipt of a message they sent. Any values returned from the handler function will be passed to the client as arguments in the callback function:
+
+@socketio.on('my event')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+    return 'one', 2
+In the above example, the client callback function will be invoked with two arguments, 'one' and 2. If a handler function does not return any values, the client callback function will be invoked without arguments.
+
+Sending Messages
+SocketIO event handlers defined as shown in the previous section can send reply messages to the connected client using the send() and emit() functions.
+
+The following examples bounce received events back to the client that sent them:
+
+from flask_socketio import send, emit
+
+@socketio.on('message')
+def handle_message(message):
+    send(message)
+
+@socketio.on('json')
+def handle_json(json):
+    send(json, json=True)
+
+@socketio.on('my event')
+
+
+@socketio.on('message')
+def handle_message(data):
+    print('received message: ' + data)
+The above example uses string messages. Another type of unnamed events use JSON data:
+
+@socketio.on('json')
+def handle_json(json):
+    print('received json: ' + str(json))
+The most flexible type of event uses custom event names. The message data for these events can be string, bytes, int, or JSON:
+
+@socketio.on('my event')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+Custom named events can also support multiple arguments:
+
+@socketio.on('my_event')
+def handle_my_custom_event(arg1, arg2, arg3):
+    print('received args: ' + arg1 + arg2 + arg3)
+When the name of the event is a valid Python identifier that does not collide with other defined symbols, the @socketio.event decorator provides a more compact syntax that takes the event name from the decorated function:
+
+@socketio.event
+def my_custom_event(arg1, arg2, arg3):
+    print('received args: ' + arg1 + arg2 + arg3)
+Named events are the most flexible, as they eliminate the need to include additional metadata to describe the message type. The names message, json, connect and disconnect are reserved and cannot be used for named events.
+
+Flask-SocketIO also supports SocketIO namespaces, which allow the client to multiplex several independent connections on the same physical socket:
+
+@socketio.on('my event', namespace='/test')
+def handle_my_custom_namespace_event(json):
+    print('received json: ' + str(json))
+When a namespace is not specified a default global namespace with the name '/' is used.
+
+For cases when a decorator syntax isn’t convenient, the on_event method can be used:
+
+def my_function_handler(data):
+    pass
+
+socketio.on_event('my event', my_function_handler, namespace='/test')
+Clients may request an acknowledgement callback that confirms receipt of a message they sent. Any values returned from the handler function will be passed to the client as arguments in the callback function:
+
+@socketio.on('my event')
+def handle_my_custom_event(json):
+    print('received json: ' + str(json))
+    return 'one', 2
+In the above example, the client callback function will be invoked with two arguments, 'one' and 2. If a handler function does not return any values, the client callback function will be invoked without arguments.
+
+Sending Messages
+SocketIO event handlers defined as shown in the previous section can send reply messages to the connected client using the send() and emit() functions.
+
+The following examples bounce received events back to the client that sent them:
+
+from flask_socketio import send, emit
+
+@socketio.on('message')
+def handle_message(message):
+    send(message)
+
+@socketio.on('json')
+def handle_json(json):
+    send(json, json=True)
+
+@socketio.on('my event')
+'''
