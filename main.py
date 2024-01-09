@@ -40,7 +40,7 @@ def home():
             room = generate_unique_code(10)
             rooms[room] = {"members": 0, "messages": []}
         elif code not in rooms:
-            return render_template("home.html", error="Room does not exist.", code=code, name=name)
+            return render_template("home.html", error="Apologies for the inconvenience! It appears that the room you're looking for doesn't exist. \n We are currently using free deployment, server is currently experiencing high demand. Feel free to try again later or explore our demo for a glimpse of what's in store", code=code, name=name)
         
         session["room"] = room
         session["name"] = name
